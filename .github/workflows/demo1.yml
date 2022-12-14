@@ -11,7 +11,7 @@ on:
     branches:
     - 'main'
     paths:
-      - ".githu/worflows/*.yml"
+      - ".github/worflows/*.yml"
     
 jobs:
   deploy:
