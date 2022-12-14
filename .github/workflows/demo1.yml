@@ -7,7 +7,13 @@ on:
     paths: 
     - '*.yml'  # By adding paths to the types will conisider it as condition.
                # In this case it will only consider the changes for yaml files and pull request is opened.  
-  
+  workflow_dispatch:
+  push:
+    branches:
+    - 'main'
+    paths:
+      - "*.yml"
+    
 jobs:
   deploy:
     runs-on: ubuntu-latest
