@@ -5,7 +5,7 @@ on:
     branches:
     - 'main/**' # This will trigger if the branches are only from main .
     paths: # In this case it will only consider the changes for yaml files and pull request is opened.  
-    - '*.yml'  # By adding paths to the types will consider it as a condition.
+    - '**.yml'  # By adding paths to the types will consider it as a condition.
                
   push:
     branches:
