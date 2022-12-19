@@ -32,7 +32,7 @@ jobs:
       - name: Deploy project
         uses: actions/upload-artifact@v3
         with:
-          name: dist-files
+          name: dist-files # Following are the artifacts of job deploy
           path: |
             dist
             package.json
