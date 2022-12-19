@@ -1,4 +1,4 @@
-name: EventsDemoPipeline
+name: Events Demo Pipeline
 on:
   # pull_request: 
   #   types: [opened, reopened] #Activity Types
