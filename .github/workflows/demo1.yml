@@ -1,21 +1,21 @@
-name: Events Demo Pipeline
+name: Events DemoPipeline
 on:
-  # pull_request: 
-  #   types: [opened, reopened] #Activity Types
-  #   branches:
-  #   - 'main/**' # This will trigger if the branches are only from main .
-  #   - 'dev/**'
-  #   paths: 
-  #   - '**.yml'  # By adding paths to the types will consider it as condition.
-  #              # In this case it will only consider the changes for yaml files and pull request is opened.  
+  pull_request: 
+    types: [opened, reopened] #Activity Types
+    branches:
+    - 'main/**' # This will trigger if the branches are only from main .
+    - 'dev/**'
+    paths: 
+    - '*.yml'  # By adding paths to the types will consider it as condition.
+               # In this case it will only consider the changes for yaml files and pull request is opened.  
   push:
     branches:
-    - 'main/**'
+    - 'main'
     paths:
-      - '**.yml'
+      - '**.demo1.yml'
          
 jobs:
-  buildjob:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Output event data
@@ -36,7 +36,7 @@ jobs:
             dist
             package.json
   deploy:
-    needs: buildjob
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: deployment
