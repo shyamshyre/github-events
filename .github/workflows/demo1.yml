@@ -1,4 +1,4 @@
-name: Events Demo Pipeline
+name: EventsDemoPipeline
 on:
   pull_request: 
     types: [opened, reopened] #Activity Types
@@ -10,7 +10,7 @@ on:
                # In this case it will only consider the changes for yaml files and pull request is opened.  
   push:
     branches:
-    - 'main'
+    - 'main/**'
     paths:
       - 'demo1.yml'
          
