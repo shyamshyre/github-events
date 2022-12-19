@@ -40,6 +40,14 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Download the files
+        uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
+    
+      - name: Display structure of downloaded files
+        run: ls -R
+
       - name: deployment
         run: echo "Deployment in Progress"
 
