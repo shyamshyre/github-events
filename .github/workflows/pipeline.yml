@@ -14,7 +14,7 @@ on:
     branches:
     - '**main' 
     paths:
-    - 'demo1.yml'
+    - 'pipeline.yml'
 jobs:
   build:
     runs-on: ubuntu-latest
