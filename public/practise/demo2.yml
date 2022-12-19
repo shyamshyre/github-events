@@ -1,0 +1,40 @@
+# name: RevisionPipeline
+# on:
+#   push:
+#     branches:
+#       - 'main/**'
+# jobs:
+#   projectcheckout:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Checkout the project
+#       uses: actions/checkout@v3
+#     - name: Build the project
+#       run: npm ci
+#   buildproject:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout the project
+#         uses: actions/checkout@v3
+#       - name: Install dependencies
+#         run: npm ci 
+#       - name: Execute Testcases
+#         run : npm test
+#       - name: Build the project
+#         run: npm build
+#       - name: save the Output Artifacts
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: nodejs-output
+#           path: ./dist
+
+
+
+
+    
+
+
+
+  
+      
+    

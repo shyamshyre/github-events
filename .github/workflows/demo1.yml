@@ -1,22 +1,20 @@
-name: Events Demo 1
+name: Events DemoPipeline
 on:
   pull_request: 
     types: [opened, reopened] #Activity Types
     branches:
     - 'main/**' # This will trigger if the branches are only from main .
-
     - 'dev/**'
     paths: 
     - '*.yml'  # By adding paths to the types will consider it as condition.
                # In this case it will only consider the changes for yaml files and pull request is opened.  
   push:
     branches:
-    - 'main'
+    - 'main/**'
     paths:
       - 'demo1.yml'
-
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Output event data
@@ -32,10 +30,19 @@ jobs:
       - name: Deploy project
         uses: actions/upload-artifact@v3
         with:
-          name: dist-files
+          name: dist-files # Following are the artifacts of job deploy
           path: |
             dist
             package.json
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: deployment
+        run: echo "Deployment in Progress"
+
+
+
 
           
         
