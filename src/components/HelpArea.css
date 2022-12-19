@@ -1,4 +1,6 @@
 #help-area {
   margin: auto;
   display: flex;
+  position: relative;
+  
 }
