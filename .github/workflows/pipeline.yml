@@ -12,7 +12,7 @@ on:
                # In this case it will only consider the changes for yaml files and pull request is opened.  
   push:
     branches:
-    - 'main/**'
+    - '**main' 
     # paths:
     #   - 'demo1.yml'
 jobs:
