@@ -14,7 +14,7 @@ on:
     - 'main'
     paths:
       - 'demo1.yml'
-         
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
