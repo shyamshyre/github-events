@@ -43,7 +43,7 @@ jobs:
       - name: Download the files
         uses: actions/download-artifact@v3
         with:
-          name: my-artifact
+          name: dist-files
     
       - name: Display structure of downloaded files
         run: ls -R
