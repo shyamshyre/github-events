@@ -12,8 +12,7 @@ on:
     branches:
     - 'main'
     paths:
-      - '**.yml'
-    
+      - 'demo1.yml'   
 jobs:
   deploy:
     runs-on: ubuntu-latest
