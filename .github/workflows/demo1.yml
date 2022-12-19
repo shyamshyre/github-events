@@ -11,8 +11,8 @@ on:
   push:
     branches:
     - 'main/**'
-    paths:
-      - '**.yml'
+    # paths:
+    #   - '**.yml'
          
 jobs:
   buildjob:
