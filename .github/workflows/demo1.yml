@@ -4,6 +4,7 @@ on:
     types: [opened, reopened] #Activity Types
     branches:
     - 'main/**' # This will trigger if the branches are only from main .
+
     - 'dev/**'
     paths: 
     - '*.yml'  # By adding paths to the types will consider it as condition.
