@@ -12,7 +12,7 @@ on:
     branches:
     - 'main/**'
     paths:
-      - 'demo1.yml'
+      - '*.yml'
          
 jobs:
   build:
