@@ -1,0 +1,16 @@
+name: RevisionPipeline
+on:
+  push:
+    branches:
+      - 'main/**'
+  jobs:
+    name: BuildNodeProject
+    runs-on: ubuntu-latest
+  steps:
+    name: Checkout the project
+    
+    uses:  npm ci
+    name: Build the project
+  
+      
+    
