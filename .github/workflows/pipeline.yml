@@ -1,5 +1,7 @@
 name: Events Demo Pipeline
 on:
+  workflow_dispatch:
+    
   pull_request: 
     types: [opened, reopened] #Activity Types
     branches:
