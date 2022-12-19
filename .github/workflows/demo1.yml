@@ -15,7 +15,7 @@ on:
       - '**.yml'
          
 jobs:
-  build:
+  buildjob:
     runs-on: ubuntu-latest
     steps:
       - name: Output event data
@@ -36,7 +36,7 @@ jobs:
             dist
             package.json
   deploy:
-    needs: build
+    needs: buildjob
     runs-on: ubuntu-latest
     steps:
       - name: deployment
