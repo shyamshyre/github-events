@@ -11,8 +11,8 @@ on:
   push:
     branches:
     - 'main/**'
-    paths:
-      - 'demo1.yml'
+    # paths:
+    #   - 'demo1.yml'
 jobs:
   build:
     runs-on: ubuntu-latest
