@@ -39,7 +39,7 @@ jobs:
         id: publish
         # output-file is the variable name which holds the file name. 
         # The below command will execute and write filename to a file GITHUB_OUTPUT, where the value be passed as an input to the above output.
-        run: npm run find dist/assets/*.js -type f -execdir echo 'output-file={}'>> $GITHUB_OUTPUT ';'
+        run: npm run find dist/assets/*.js -type f -execdir echo 'output-file={}' >> $GITHUB_OUTPUT ';'
       - name: Deploy project
         uses: actions/upload-artifact@v3
         with:
