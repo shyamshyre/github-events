@@ -55,7 +55,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist-files
-    
+      - name: Display File name from the previous job
+        # needs - > Context variable, build -> the parentjob, output-> property from github action, script-file -> Value/Variable from the previous step outputs.
+        run: "${{needs.build.outputs.script-file}}"
       - name: Display structure of downloaded files
         run: ls -R
 
