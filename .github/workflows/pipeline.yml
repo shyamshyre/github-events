@@ -20,8 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     # Capturng the step related output defined down below.
     # publish (id) is the key identifier that identifies the step.
-    outputs:
-      script-file:  ${{steps.publish.outputs.output-file}}
+    # outputs:
+      # script-file:  ${{steps.publish.outputs.output-file}}
     steps:
       - name: Output event data
         run: echo "${{ toJSON(github.event) }}"
@@ -43,13 +43,13 @@ jobs:
         run: npm run test
       - name: Build code
         run: npm run build
-      - name: Publish the files
+      # - name: Publish the files
         # The below command will list down the filename , and we are trying to capture the filename and pass it to the subsesquent job.
         # above steps will fetch the vlaue from id
-        id: publish
+        # id: publish
         # output-file is the variable name which holds the file name. 
         # The below command will execute and write filename to a file GITHUB_OUTPUT, where the value be passed as an input to the above output.
-        run: find dist/assets/*.js -type f -execdir echo 'output-file={}' >> $GITHUB_OUTPUT ';'
+        # run: find dist/assets/*.js -type f -execdir echo 'output-file={}' >> $GITHUB_OUTPUT ';'
       - name: Deploy project
         uses: actions/upload-artifact@v3
         with:
@@ -60,6 +60,8 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    outputs:
+      script-file:  ${{steps.publish.outputs.output-file}}
     needs: build
     steps:
       - name: pull the code
@@ -78,8 +80,17 @@ jobs:
         run: npm ci
       - name: Run Test
         run: npm run test
+      - name: Publish the files
+        # The below command will list down the filename , and we are trying to capture the filename and pass it to the subsesquent job.
+        # above steps will fetch the vlaue from id
+        id: publish
+        # output-file is the variable name which holds the file name. 
+        # The below command will execute and write filename to a file GITHUB_OUTPUT, where the value be passed as an input to the above output.
+        run: find dist/assets/*.js -type f -execdir echo 'output-file={}' >> $GITHUB_OUTPUT ';'
+
+
   deploy:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: manage the cache.
@@ -96,7 +107,7 @@ jobs:
           name: dist-files
       - name: Display File name from the previous job
         # needs - > Context variable, build -> the parentjob, output-> property from github action, script-file -> Value/Variable from the previous step outputs.
-        run: echo "${{needs.build.outputs.script-file}}"
+        run: echo "${{needs.test.outputs.script-file}}"
       - name: Display structure of downloaded files
         run: ls -R
 
