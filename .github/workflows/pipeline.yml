@@ -80,6 +80,8 @@ jobs:
         run: npm ci
       - name: Run Test
         run: npm run test
+      - name: Build the product
+        run: npm run build
       - name: Publish the files
         # The below command will list down the filename , and we are trying to capture the filename and pass it to the subsesquent job.
         # above steps will fetch the vlaue from id
