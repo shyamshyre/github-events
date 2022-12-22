@@ -16,7 +16,7 @@ on:
     paths:
     - '**pipeline.yml' # ** is mandatory if not the pipeline will not consider it. pipleine will not be considered.
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     # Capturng the step related output defined down below.
     # publish (id) is the key identifier that identifies the step.
@@ -41,28 +41,13 @@ jobs:
         run: npm ci
       - name: Test code
         run: npm run test
-      - name: Build code
-        run: npm run build
-      # - name: Publish the files
-        # The below command will list down the filename , and we are trying to capture the filename and pass it to the subsesquent job.
-        # above steps will fetch the vlaue from id
-        # id: publish
-        # output-file is the variable name which holds the file name. 
-        # The below command will execute and write filename to a file GITHUB_OUTPUT, where the value be passed as an input to the above output.
-        # run: find dist/assets/*.js -type f -execdir echo 'output-file={}' >> $GITHUB_OUTPUT ';'
-      - name: Deploy project
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist-files # Following are the artifacts of job deploy
-          path: |
-            dist
-            package.json
+ 
 
-  test:
+  build:
     runs-on: ubuntu-latest
     outputs:
       script-file:  ${{steps.publish.outputs.output-file}}
-    needs: build
+    needs: test
     steps:
       - name: pull the code
         uses: actions/checkout@v3
@@ -92,7 +77,7 @@ jobs:
 
 
   deploy:
-    needs: test
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: pull the code
@@ -103,7 +88,7 @@ jobs:
           path: ~./npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json')}}
       - name: Build the project
-        run : npm run ci
+        run : npm ci
 
       - name: Download the files
         uses: actions/download-artifact@v3
@@ -111,7 +96,7 @@ jobs:
           name: dist-files
       - name: Display File name from the previous job
         # needs - > Context variable, build -> the parentjob, output-> property from github action, script-file -> Value/Variable from the previous step outputs.
-        run: echo "${{needs.test.outputs.script-file}}"
+        run: echo "${{needs.build.outputs.script-file}}"
       - name: Display structure of downloaded files
         run: ls -R
 
