@@ -27,6 +27,16 @@ jobs:
         run: echo "${{ toJSON(github.event) }}"
       - name: Get code
         uses: actions/checkout@v3
+      - name: Caching dependencies
+        uses: actions/cache@v3
+        with: 
+          # This predeominanly used for caching, we are caching the npm modules that are getting generated in the ubuntu container.
+          # path is the location where we are specify the content to cache.          
+          path: ~./npm
+          # Need to have key with a dynamic value, which tell to have / pick the updated version of cache.
+          # in the beloe case the a hashfile is generate for package-lock.json
+          # if there is any change in the file, the hash get's updated.
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json')}}
       - name: Install dependencies
         run: npm ci
       - name: Test code
@@ -47,10 +57,39 @@ jobs:
           path: |
             dist
             package.json
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: pull the code
+        uses: actions/checkout@v3
+      - name: Caching dependencies
+        uses: actions/cache@v3
+        with: 
+          # This predeominanly used for caching, we are caching the npm modules that are getting generated in the ubuntu container.
+          # path is the location where we are specify the content to cache.          
+          path: ~./npm
+          # Need to have key with a dynamic value, which tell to have / pick the updated version of cache.
+          # in the beloe case the a hashfile is generate for package-lock.json
+          # if there is any change in the file, the hash get's updated.
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json')}}
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Test
+        run: npm run test
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: manage the cache.
+        uses: actions/cache@v3
+        with:
+          path: ~./npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json')}}
+      - name: Build the project
+        run : npm run ci
+
       - name: Download the files
         uses: actions/download-artifact@v3
         with:
